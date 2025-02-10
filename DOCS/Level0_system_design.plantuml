@@ -4,19 +4,19 @@ skinparam dpi 150
 
 
 ' Frontend Layer
-rectangle "Frontend Layer\n🖥️ React.js / Next.js" as FE 
+rectangle "Frontend Layer\n JavaScript/React.js" as FE 
 
 ' API Gateway Layer
-rectangle "API Gateway\n🚀 FastAPI + 🛠️ Nginx" as APIG 
+rectangle "API Gateway\n FastAPI + 🛠️ Nginx" as APIG 
 
 ' Core Processing Layer
 rectangle "Processing Layer" as PL {
-  rectangle "Resume Parsing\n📄🔍" as RP
-  rectangle "Job Matching\n🤖 BERT + 🔍 Faiss" as JM
+  rectangle "Resume Parsing\n" as RP
+  rectangle "Job Matching\n BERT + 🔍 Faiss" as JM
 }
 
 ' Database Layer
-rectangle "Database Layer\n🗄️ MongoDB + 📂 VectorDB" as DB 
+rectangle "Database Layer\n MongoDB +  VectorDB" as DB 
 
 ' Define Relationships
 FE -down-> APIG : API Calls

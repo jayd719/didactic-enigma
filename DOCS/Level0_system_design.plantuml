@@ -7,7 +7,7 @@ skinparam dpi 150
 rectangle "Frontend Layer\n JavaScript/React.js" as FE 
 
 ' API Gateway Layer
-rectangle "API Gateway\n FastAPI + 🛠️ Nginx" as APIG 
+rectangle "API Gateway\n FastAPI +  Nginx" as APIG 
 
 ' Core Processing Layer
 rectangle "Processing Layer" as PL {

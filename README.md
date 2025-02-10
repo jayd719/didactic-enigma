@@ -1,0 +1,183 @@
+<h1>System Architecture Document</h1>
+<h1>Job Matching &amp; Resume Parsing Platform</h1>
+
+
+<h2>1. Overview</h2>
+<p>Finding the right job can be overwhelming and time-consuming. Job seekers often have to search multiple
+websites,
+fill out applications repeatedly, and wait for responses. This platform simplifies the process by using
+<strong>artificial intelligence (AI) to find the best job opportunities</strong> for you—all in one
+place.
+</p>
+<p>With this system, <strong>you only need to upload your resume once</strong>. The platform will
+automatically
+<strong>analyze your skills, experience, and qualifications</strong>, then search across multiple job
+sources on
+the web to find <strong>the best job matches near you</strong>. Instead of spending hours searching, you
+get a
+<strong>personalized list of job opportunities</strong> that fit your profile, making the job hunt
+faster,
+easier, and more effective.
+</p>
+
+<p>This document provides an overview of how the Job Matching & Resume Parsing Platform is structured. The
+system is built
+to handle job applications, pull out important details from resumes, and connect candidates with suitable
+job openings
+using artificial intelligence (AI).
+
+The design is divided into different parts that work together smoothly. It is built in a way that allows
+easy expansion
+and ensures that different sections of the system communicate well through APIs. The system also focuses on
+processing
+data quickly and keeping all information safe and secure.</p>
+
+
+
+
+<h2>2. Tech Stack</h2>
+<p>The system utilizes a modern tech stack to ensure scalability, performance, and
+maintainability:
+</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technologies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>Javascript/React.js</td>
+</tr>
+<tr>
+<td>API Gateway</td>
+<td>FastAPI + Nginx</td>
+</tr>
+<tr>
+<td>Processing Layer</td>
+<td>BERT (AI-based NLP) + Faiss (Vector Search)</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>MongoDB (NoSQL) + VectorDB</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+<h2>3. System Architecture</h2>
+
+<div style="display: flex;">
+<div>
+<h3>Level 0 System Design</h3>
+<img width="100%" src="out/DOCS/Level0_system_design/Level0_system_design.svg" alt="">
+</div>
+
+<div>
+<p>The system consists of four key layers:</p>
+<h4>3.1. Frontend Layer</h4>
+<ul>
+<li>Built using React.js / Next.js for a seamless user experience.
+</li>
+<li>Communicates with the backend via REST APIs.</li>
+<li>Provides job seekers with an interface to upload resumes and search for job
+opportunities.</li>
+</ul>
+<h4>3.2. API Gateway Layer</h4>
+<ul>
+<li>Implemented using FastAPI for high-performance API management.</li>
+<li>Uses Nginx as a reverse proxy for load balancing and security.
+</li>
+<li>Routes incoming requests to the appropriate backend services.</li>
+</ul>
+<h4>3.3. Processing Layer</h4>
+<ul>
+<li>Handles resume parsing and job matching logic.</li>
+<li>Resume Parsing:<ul>
+    <li>Extracts structured information from PDF/DOCX resumes.</li>
+    <li>Stores structured resume data in the database.</li>
+</ul>
+</li>
+<li>Job Matching:<ul>
+    <li>Uses BERT (Bidirectional Encoder Representations from Transformers) for
+        natural language processing (NLP).
+    </li>
+    <li>Implements Faiss (Facebook AI Similarity Search) for fast
+        candidate-job
+        similarity searches.</li>
+</ul>
+</li>
+</ul>
+<h4>3.4. Database Layer</h4>
+<ul>
+<li>MongoDB: Stores structured job seeker profiles, job postings, and metadata.</li>
+<li>VectorDB: Stores embeddings of resumes and job descriptions for
+efficient
+similarity searches.</li>
+</ul>
+</div>
+</div>
+
+<h2>4. System Flow</h2>
+<img width="100%" src="out/DOCS/workflow/Sequence diagram.svg" alt="">
+<p>Key Workflow Steps:</p>
+<ol>
+<li>User uploads a resume via the frontend.</li>
+<li>Resume is sent to the API Gateway, which forwards it to the Processing
+Layer.</li>
+<li>Resume Parsing Module extracts structured data and stores it in
+MongoDB.
+</li>
+<li>Job Matching Module generates embeddings for the resume and job postings using
+BERT.
+</li>
+<li>Faiss performs a vector similarity search to identify the
+best-matching
+job opportunities.</li>
+<li>The best matches are retrieved from the database and returned to the
+frontend.
+</li>
+</ol>
+
+<h2>5. Scalability &amp; Modularity</h2>
+<p>The architecture is designed for scalability, with the following considerations:</p>
+<ul>
+<li>Microservices Approach: Individual components can be scaled independently.</li>
+<li>Caching Mechanisms: Implement Redis for frequently queried resume/job
+matches.</li>
+<li>Queue Processing: Use Celery + RabbitMQ for handling bulk resume
+uploads
+and background job processing.</li>
+<li>Machine Learning Enhancements: Integrate fine-tuned LLMs to improve
+job
+matching accuracy.</li>
+</ul>
+<img width="100%" src="out/DOCS/Level1_system_design/Level1_system_design.svg" alt="">
+
+<h2>6. Security Considerations</h2>
+<p>Security is a critical aspect of the system:</p>
+<ul>
+<li>Authentication &amp; Authorization: Implement OAuth2 / JWT-based
+authentication for secure API access.</li>
+<li>Data Encryption: Encrypt sensitive data at rest and in transit using TLS
+1.2+.</li>
+<li>Rate Limiting: Prevent API abuse using Nginx rate-limiting strategies.
+</li>
+</ul>
+
+<h2>7. Deployment</h2>
+<p>The system is designed for cloud-native deployment:</p>
+<ul>
+<li>Docker + Kubernetes for container orchestration.</li>
+<li>CI/CD Pipeline using GitHub Actions / GitLab CI for automated
+deployments.
+</li>
+<li>Hosted on AWS/GCP with load balancers and auto-scaling.</li>
+</ul>
+<img width="100%" src="out/DOCS/deployment/Deployment.svg" alt="">

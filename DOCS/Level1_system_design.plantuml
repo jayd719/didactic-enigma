@@ -1,0 +1,68 @@
+@startuml Level1_system_design
+
+skinparam dpi 150
+skinparam rectangle {
+    BorderColor Black
+    FontStyle Bold
+}
+
+' Frontend Layer
+rectangle "Frontend Layer" as FE {
+  [React.js / Next.js]
+  [Auth UI (Firebase Auth)]
+}
+
+' API Gateway Layer
+rectangle "API Gateway Layer" as APIG {
+  [FastAPI + Nginx]
+  [Rate Limiting & API Gateway]
+  [Authentication Service]
+}
+
+' Processing Layer
+rectangle "Processing Layer" as PL {
+  rectangle "Resume Processing" as RP {
+    [Resume Upload]
+    [Resume Parser (spaCy, OpenAI)]
+  }
+
+  rectangle "Job Matching" as JM {
+    [BERT Model]
+    [Faiss Vector Search]
+  }
+
+  [Recommendation Engine]
+}
+
+' Database Layer
+rectangle "Database Layer" as DB {
+  rectangle "NoSQL Databases" as NOSQLDB {
+    [MongoDB (User & Job Data)]
+    [VectorDB (Candidate Embeddings)]
+  }
+  
+  rectangle "Cache & Indexing" as CACHE {
+    [Redis (Session & Caching)]
+    [ElasticSearch (Job Search Index)]
+  }
+}
+
+' Logging & Monitoring
+rectangle "Logging & Monitoring" as LOGS {
+  [Prometheus (Monitoring)]
+  [ELK Stack (Logging)]
+}
+
+' Define Relationships
+FE -down-> APIG : API Calls
+APIG -down-> RP : Resume Processing Requests
+APIG -down-> JM : Job Matching Requests
+APIG -down-> CACHE : Read/Write Cached Data
+APIG -down-> LOGS : Logs API Calls
+PL -down-> NOSQLDB : Data Storage & Retrieval
+RP -down-> NOSQLDB : Store Resume Data
+JM -down-> NOSQLDB : Store Candidate Embeddings
+JM -down-> CACHE : Cache Frequent Queries
+LOGS -down-> NOSQLDB : Store Log Data
+
+@enduml

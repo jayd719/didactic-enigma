@@ -1,0 +1,28 @@
+@startuml Level0_system_design
+
+skinparam dpi 150
+
+
+' Frontend Layer
+rectangle "Frontend Layer\n🖥️ React.js / Next.js" as FE 
+
+' API Gateway Layer
+rectangle "API Gateway\n🚀 FastAPI + 🛠️ Nginx" as APIG 
+
+' Core Processing Layer
+rectangle "Processing Layer" as PL {
+  rectangle "Resume Parsing\n📄🔍" as RP
+  rectangle "Job Matching\n🤖 BERT + 🔍 Faiss" as JM
+}
+
+' Database Layer
+rectangle "Database Layer\n🗄️ MongoDB + 📂 VectorDB" as DB 
+
+' Define Relationships
+FE -down-> APIG : API Calls
+APIG -down-> PL : Request Processing
+PL -down-> DB : Data Storage & Retrieval
+RP -down-> DB : Resume Data Storage
+JM -down-> DB : Candidate Matching Data
+
+@enduml

@@ -1,0 +1,41 @@
+@startuml Sequence diagram
+
+' Sequence diagram for resume processing and job matching system
+
+actor User
+participant "Frontend Layer" as Frontend
+participant "API Gateway (FastAPI + Nginx)" as APIGateway
+participant "Processing Layer" as ProcessingLayer
+participant "Resume Parsing" as ResumeParsing
+participant "Job Matching (BERT + Faiss)" as JobMatching
+
+database "Database" as Database
+entity "Resume Entity" as ResumeEntity
+entity "Job Entity" as JobEntity
+
+' User uploads a resume via the frontend
+User -> Frontend: Upload Resume
+Frontend -> APIGateway: API Call with Resume Data
+Frontend ---> User: Show Loading Screen
+
+' API Gateway forwards request to processing layer
+APIGateway -> ProcessingLayer: Forward Request
+
+' Resume parsing extracts structured data and stores it
+ProcessingLayer ->> ResumeParsing: Extract structured data (Sync)
+ResumeParsing ->> ResumeEntity: Store Resume Data (Sync)
+ResumeEntity ->> Database: Save Data (Sync)
+
+' Job Matching retrieves job data and finds best matches
+ProcessingLayer ->> JobMatching: Generate Resume Embeddings (Sync)
+JobMatching ->> JobEntity: Retrieve Job Data (Sync)
+JobEntity ->> Database: Query Job Listings (Sync)
+JobMatching ->> Database: Perform Vector Similarity Search (Sync)
+Database ->> JobMatching: Retrieve Matching Jobs (Sync)
+
+' Asynchronous response flow
+JobMatching -->> APIGateway: Return Best Matches (Async)
+APIGateway -->> Frontend: Send Matching Jobs (Async)
+Frontend -->> User: Display Job Matches (Async)
+
+@enduml

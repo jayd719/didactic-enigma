@@ -1,0 +1,166 @@
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    display: flex;
+  font-weight: 500;
+background: #fff;
+max-height: 100vh;
+}
+
+/* Layout */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px;
+  overflow-y: scroll;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5 {
+  color: #222;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+#index h1{
+    font-size: 1.5rem;
+}
+#index ul{
+    list-style: none;
+}
+h2 {
+  font-size: x-large;
+  margin-top: 60px;
+}
+
+h3 {
+  margin-top: 20px;
+}
+
+h4, h5 {
+  color: #495057;
+  margin-top: 20px;
+}
+
+h5 {
+  margin-top: 10px;
+}
+
+/* Typography */
+p {
+  text-align: justify;
+  margin: 10px 10px 10px 0;
+}
+
+h3, p {
+  margin-left: 10px;
+}
+
+h4, h5 {
+  margin-left: 20px;
+}
+
+a {
+  color: #0056b3;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #003d82;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 40px;
+  margin-bottom: 20px;
+}
+
+/* Code Blocks */
+pre {
+  margin: 20px 50px;
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+code {
+  font-weight: bold;
+  color: #ee3a8e;
+  background-color: #f1f1f1;
+  padding: 2px 4px;
+  border-radius: 5px;
+}
+
+/* Tables */
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #c4c4c4;
+  color: #333;
+}
+
+td {
+  background-color: #fff;
+}
+
+/* Figures */
+figure {
+  margin: 30px auto;
+  text-align: center;
+}
+
+figcaption {
+  font-style: italic;
+  color: #666;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+  color: #555;
+}
+
+/* SVG Styling */
+svg {
+  margin-bottom: 15px;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  max-width: 98%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Inline Elements */
+#index {
+  background-color: #f1f1f1;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-weight: 500;
+  color: #495057;
+}

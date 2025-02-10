@@ -1,0 +1,63 @@
+@startuml Simplified_Level1_DFD
+
+skinparam dpi 150
+skinparam rectangle {
+    BackgroundColor LightGray
+    BorderColor Black
+    FontStyle Bold
+}
+
+'===================== External Entities =====================
+actor "User" as USER
+actor "Recruiter" as RECRUITER
+actor "External Job APIs" as EXTERNAL_APIS
+
+'===================== System Context =====================
+rectangle "Job Matching System" as SYSTEM {
+  
+  '========= User Interface =========
+  rectangle "Frontend (React.js / Next.js)" as FRONTEND {
+    [Login / Signup]
+    [Job Search & Apply]
+    [Resume Upload]
+  }
+
+  '========= API Gateway =========
+  rectangle "API Gateway" as API_GATEWAY {
+    [Request Validation]
+    [Authentication & Authorization]
+  }
+
+  '========= Processing Services =========
+  rectangle "Processing Services" as PROCESSING {
+    [Resume Parsing]
+    [Job Matching (BERT + Faiss)]
+    [Recommendation Engine]
+  }
+
+  '========= Database & Storage =========
+  rectangle "Database & Cache" as DATABASE {
+    [MongoDB (Users, Jobs, Applications)]
+    [VectorDB (Embeddings)]
+    [Redis (Cache)]
+  }
+
+  '========= External APIs =========
+  rectangle "External APIs" as EXT {
+    [LinkedIn API]
+    [Job Boards API]
+  }
+}
+
+'===================== Data Flows =====================
+USER -down-> FRONTEND : Login / Upload Resume
+FRONTEND -down-> API_GATEWAY : API Calls
+API_GATEWAY -down-> PROCESSING : Process Requests
+PROCESSING -down-> DATABASE : Store Data
+PROCESSING -down-> EXT : Fetch External Data
+DATABASE -down-> API_GATEWAY : Return Results
+API_GATEWAY -down-> FRONTEND : Send Response
+RECRUITER -down-> FRONTEND : Post Jobs
+EXTERNAL_APIS -down-> EXT : Fetch Job Listings
+
+@enduml

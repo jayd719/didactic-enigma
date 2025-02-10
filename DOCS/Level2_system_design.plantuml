@@ -1,0 +1,102 @@
+@startuml Level2_system_design
+
+skinparam dpi 150
+skinparam rectangle {
+    BackgroundColor LightGray
+    BorderColor Black
+    FontStyle Bold
+}
+
+'===================== Frontend Layer =====================
+rectangle "Frontend Layer" as FE {
+  [React.js / Next.js]
+  [Auth UI (Firebase Auth)]
+  [Job Search UI]
+  [Resume Upload UI]
+}
+
+'===================== API Gateway =====================
+rectangle "API Gateway Layer" as APIG {
+  [FastAPI + Nginx]
+  [Rate Limiting & API Gateway]
+  [Authentication Service (JWT, OAuth)]
+}
+
+'===================== Authentication & Authorization =====================
+rectangle "Auth Service" as AUTH {
+  [Firebase Authentication]
+  [User Roles & Permissions]
+}
+
+'===================== Processing Layer =====================
+rectangle "Processing Layer" as PL {
+  
+  rectangle "Resume Processing Microservice" as RP {
+    [Resume Upload]
+    [AI-based Resume Parser (spaCy, OpenAI)]
+    [Resume Enrichment (LinkedIn API, OpenAI API)]
+  }
+
+  rectangle "Job Matching Microservice" as JM {
+    [BERT-based Semantic Matching]
+    [Faiss Vector Search for Similarity]
+    [Candidate-Job Score Calculation]
+  }
+
+  rectangle "Recommendation Engine" as RE {
+    [Collaborative Filtering]
+    [Content-based Recommendations]
+  }
+}
+
+'===================== Database & Storage =====================
+rectangle "Database & Storage" as DB {
+  
+  rectangle "NoSQL Databases" as NOSQLDB {
+    [MongoDB (Users, Jobs, Applications)]
+    [VectorDB (Candidate Embeddings)]
+  }
+  
+  rectangle "Cache & Search Indexing" as CACHE {
+    [Redis (Session & Query Caching)]
+    [Elasticsearch (Job Search Index)]
+  }
+
+  rectangle "File Storage" as STORAGE {
+    [AWS S3 / Firebase Storage]
+  }
+}
+
+'===================== Logging & Monitoring =====================
+rectangle "Logging & Monitoring" as LOGS {
+  [Prometheus (Metrics Monitoring)]
+  [ELK Stack (Elasticsearch, Logstash, Kibana)]
+  [OpenTelemetry (Distributed Tracing)]
+}
+
+'===================== External APIs =====================
+rectangle "External APIs" as EXT {
+  [LinkedIn API (Resume Enrichment)]
+  [Job Boards API (Indeed, Glassdoor)]
+  [OpenAI API (NLP Enhancements)]
+}
+
+'===================== Define Relationships =====================
+FE -down-> APIG : API Requests
+APIG -down-> AUTH : Authenticate Requests
+APIG -down-> RP : Resume Processing Requests
+APIG -down-> JM : Job Matching Requests
+APIG -down-> RE : Fetch Recommendations
+APIG -down-> CACHE : Read/Write Cached Data
+APIG -down-> LOGS : Logs API Calls
+APIG -down-> EXT : Fetch External Job Listings
+
+RP -down-> NOSQLDB : Store Parsed Resume Data
+RP -down-> EXT : Resume Enrichment via LinkedIn API
+JM -down-> NOSQLDB : Store Candidate Embeddings
+JM -down-> CACHE : Cache Similarity Scores
+JM -down-> EXT : Fetch External Job Listings
+
+LOGS -down-> NOSQLDB : Store Log Data
+
+@enduml

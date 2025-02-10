@@ -1,0 +1,39 @@
+@startuml Deployment
+
+' Deployment diagram for resume processing and job matching system
+
+node "User Device" {
+    [Frontend Layer]
+}
+
+node "Cloud Server" {
+    node "API Gateway Server" {
+        [API Gateway (FastAPI + Nginx)]
+    }
+    node "Processing Server" {
+        [Processing Layer]
+        [Resume Parsing]
+        [Job Matching (BERT + Faiss)]
+    }
+}
+
+node "Database Server" {
+    database "Database" {
+        [Resume Entity]
+        [Job Entity]
+    }
+}
+
+' Connections
+[Frontend Layer] --> [API Gateway (FastAPI + Nginx)] : API Calls
+[API Gateway (FastAPI + Nginx)] --> [Processing Layer] : Forward Requests
+[Processing Layer] --> [Resume Parsing] : Process Resumes
+[Processing Layer] --> [Job Matching (BERT + Faiss)] : Match Jobs
+[Resume Parsing] --> [Resume Entity] : Store Resume Data
+[Job Matching (BERT + Faiss)] --> [Job Entity] : Retrieve Job Data
+[Job Matching (BERT + Faiss)] --> [Database] : Perform Similarity Search
+[Database] --> [Job Matching (BERT + Faiss)] : Return Matching Jobs
+[Job Matching (BERT + Faiss)] --> [API Gateway (FastAPI + Nginx)] : Send Best Matches
+[API Gateway (FastAPI + Nginx)] --> [Frontend Layer] : Return Job Matches
+
+@enduml

@@ -12,7 +12,7 @@ rectangle "API Gateway\n FastAPI +  Nginx" as APIG
 ' Core Processing Layer
 rectangle "Processing Layer" as PL {
   rectangle "Resume Parsing\n" as RP
-  rectangle "Job Matching\n BERT + 🔍 Faiss" as JM
+  rectangle "Job Matching\n BERT +  Faiss" as JM
 }
 
 ' Database Layer

@@ -1,0 +1,30 @@
+@startuml ResumeParser
+
+actor User
+participant "Resume Parser API" as API
+participant "Text Extractor" as TextExtractor
+participant "NER Model" as NER
+participant "Regex Parser" as Regex
+participant "Database" as DB
+
+User -> API: Upload Resume (filepath: str)
+API -> TextExtractor: Extract Text (PDF/DOCX/TXT)
+TextExtractor --> API: Extracted Text
+
+alt Text Extraction Successful
+    API -> NER: Perform Named Entity Recognition (NER)
+    NER --> API: Extracted Entities \n(Name, Experience, Education, Skills, etc.)
+    
+    API -> Regex: Extracted Contact Info
+    Regex --> API: Extract Contact Details \n(Emails, Phone Numbers, LinkedIn)
+
+    API --> DB: Store Parsed Resume Data
+    API -> User: Response with Structured Resume Data (JSON)
+    DB-->DB: Log Confirmation
+else Text Extraction Failed
+    API --> DB: Logged Failed File
+    API -> User: Error Response (JSON) \n(Failure Reason)
+    DB-->DB: Log Error
+end
+
+@enduml

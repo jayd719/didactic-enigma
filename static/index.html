@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hackathon Project</title>
-    <link rel="stylesheet" href="s.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 
 <body>
-    <section id="index"></section>
     <main>
         <h1>System Architecture Document</h1>
         <h1>Job Matching &amp; Resume Parsing Platform</h1>
@@ -115,7 +115,8 @@
                 <h4>3.3. Processing Layer</h4>
                 <ul>
                     <li>Handles resume parsing and job matching logic.</li>
-                    <li>Resume Parsing:<ul>
+                    <li><a href="ResumeParser.html">Resume Parsing:</a>
+                        <ul>
                             <li>Extracts structured information from PDF/DOCX resumes.</li>
                             <li>Stores structured resume data in the database.</li>
                         </ul>
@@ -205,7 +206,9 @@
 
 
     </main>
-    <script src="https://jayd719.github.io/assets/reports/index.js"></script>
+
+    <script src="js/index.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <main>
+        <main class="">
+            <h2>Overview</h2>
+            <p>The Resume Parser System automates the extraction of key information from resumes in formats like PDF,
+                DOCX, or TXT.
+                When a user uploads a resume, the API sends it to a Text Extractor, which reads and extracts its
+                content. If the text is
+                successfully extracted, the Named Entity Recognition (NER) Model identifies important details such as
+                the candidate’s
+                name, experience, education, and skills, while a Regex Parser extracts contact information like email,
+                phone number, and
+                LinkedIn profile. The structured data is then stored in a database, and the API returns a JSON response
+                containing the
+                parsed details to the user. If the text extraction fails, the system logs the error in the database and
+                informs the user
+                with an appropriate error message</p>
+            <h2>System Architecture</h2>
+            <ol>
+                <li>
+                    <p>Text Extraction</p>
+                    <ul>
+                        <li>Use PyMuPDF, pdfplumber, or Tika for PDFs
+                        </li>
+                        <li>Use python-docx for DOCX files</li>
+                        <li>Use Tesseract OCR for scanned documents</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Information Extraction</p>
+                    <ul>
+                        <li>Named Entity Recognition (NER) using SpaCy or
+                            BERT-based
+                            models
+                        </li>
+                        <li>Use regex-based parsing for structured patterns (e.g., emails, phone
+                            numbers)</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Skills &amp; Keyword Matching</p>
+                    <ul>
+                        <li>Implement TF-IDF, Word2Vec, or BERT
+                            embeddings
+                        </li>
+                        <li>Normalize skills using an ontology (e.g., O*NET or a predefined skills database)</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Experience &amp; Education Parsing</p>
+                    <ul>
+                        <li>Detect job titles, company names, and employment dates</li>
+                        <li>Recognize degree names and university names</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Contextual Understanding</p>
+                    <ul>
+                        <li>Fine-tune a BERT/GPT model for better parsing accuracy</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Scalability &amp; API Integration</p>
+                    <ul>
+                        <li>Develop a RESTful API using FastAPI or Flask</li>
+                        <li>Deploy on AWS Lambda, GCP, or Azure</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <img src="../out/DOCS/sequence-Resume-parser/ResumeParser.svg" alt="">
+        </main>
+
+    </main>
+    <script src="https://jayd719.github.io/staticfiles/tracker_menu.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

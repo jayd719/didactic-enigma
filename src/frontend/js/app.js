@@ -82,16 +82,16 @@ setTimeout(() => {
     updateCSS(['h1'], ["text-5xl", "font-bold", "text-primary", "p-4", "border-b-4", "border-primary", "mb-8"]);
     updateCSS(['h2'], ["text-2xl", "font-semibold", "text-secondary", "p-3", "border-b-2", "border-secondary", "mt-10", "mb-2"]);
     updateCSS(['h3'], ["text-lg", "font-medium", "text-accent", "p-2", "border-b", "border-accent"]);
-    updateCSS(['h4'], ["text-lg", "font-normal", "text-neutral", "p-1", "border-b", "border-neutral"]);
-    updateCSS(['p'], ["text-base", "text-gray-700", "leading-relaxed", "mb-4"]);
-    updateCSS(['ul'], ["list-disc", "list-inside", "text-gray-800", "space-y-2", "pl-4"]);
-    updateCSS(['li'], ["text-base", "text-gray-700", "leading-normal"]);
-    updateCSS(['table'], ["table", 'table-zebra', "w-full"]);
+    updateCSS(['h4'], ["text-md", "font-normal", "mt-5", "border-b", "border-neutral"]);
+    updateCSS(['p'], ["text-base", , "leading-relaxed", "mb-4", "text-sm"]);
+    updateCSS(['ul'], ["list-disc", "list-inside", "space-y-2", "pl-4"]);
+    updateCSS(['li'], ["text-base", , "leading-normal", "text-sm"]);
+    updateCSS(['table'], ["table", 'table-hover', "w-full", "border", "m-2", "border-base-300"]);
     updateCSS(["thead"], ["bg-base-300", "border", "border-2"])
-    updateCSS(['img'], ["max-w-full", "h-auto", "p-6"]);
+    updateCSS(['img'], ["max-w-full", "h-auto", "p-10"]);
     updateCSS(['a'], ["text-blue-600", "hover:text-blue-800", "underline", "font-medium", "transition", "duration-200"]);
     document.querySelector("main").className = "container mx-auto px-4 py-8 overflow-y-scroll print:px-0"
     document.body.classList.add("lg:flex", "print:block", "h-screen", "text-sm")
     generateIndex();
 }, 50);
-document.documentElement.setAttribute("data-theme", "garden");
+document.documentElement.setAttribute("data-theme", "corporate");

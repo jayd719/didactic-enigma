@@ -1,63 +1,37 @@
 @startuml Simplified_Level1_DFD
 
-skinparam dpi 150
-skinparam rectangle {
-    BackgroundColor LightGray
-    BorderColor Black
-    FontStyle Bold
+skinparam linetype ortho
+
+rectangle "Yahoo Finance API" as yahoo {
 }
 
-'===================== External Entities =====================
-actor "User" as USER
-actor "Recruiter" as RECRUITER
-actor "External Job APIs" as EXTERNAL_APIS
-
-'===================== System Context =====================
-rectangle "Job Matching System" as SYSTEM {
-  
-  '========= User Interface =========
-  rectangle "Frontend (React.js / Next.js)" as FRONTEND {
-    [Login / Signup]
-    [Job Search & Apply]
-    [Resume Upload]
-  }
-
-  '========= API Gateway =========
-  rectangle "API Gateway" as API_GATEWAY {
-    [Request Validation]
-    [Authentication & Authorization]
-  }
-
-  '========= Processing Services =========
-  rectangle "Processing Services" as PROCESSING {
-    [Resume Parsing]
-    [Job Matching (BERT + Faiss)]
-    [Recommendation Engine]
-  }
-
-  '========= Database & Storage =========
-  rectangle "Database & Cache" as DATABASE {
-    [MongoDB (Users, Jobs, Applications)]
-    [VectorDB (Embeddings)]
-    [Redis (Cache)]
-  }
-
-  '========= External APIs =========
-  rectangle "External APIs" as EXT {
-    [LinkedIn API]
-    [Job Boards API]
-  }
+rectangle "Stock Data Store" as stock_store {
 }
 
-'===================== Data Flows =====================
-USER -down-> FRONTEND : Login / Upload Resume
-FRONTEND -down-> API_GATEWAY : API Calls
-API_GATEWAY -down-> PROCESSING : Process Requests
-PROCESSING -down-> DATABASE : Store Data
-PROCESSING -down-> EXT : Fetch External Data
-DATABASE -down-> API_GATEWAY : Return Results
-API_GATEWAY -down-> FRONTEND : Send Response
-RECRUITER -down-> FRONTEND : Post Jobs
-EXTERNAL_APIS -down-> EXT : Fetch Job Listings
+rectangle "Processed Data Store" as processed_store {
+}
+
+rectangle "Fetch Stock Data" as fetch_data {
+}
+
+rectangle "Process Data" as process_data {
+}
+
+rectangle "Generate Visualizations" as generate_viz {
+}
+
+rectangle "User" as user {
+}
+
+yahoo --> fetch_data : Stock Data (Raw)\n(Open, High, Low, Close, Volume)
+fetch_data --> stock_store : Stock Data (Raw)
+stock_store --> process_data : Stock Data (Raw)
+process_data --> processed_store : Processed Data\n(Mean Price, Filtered Data)
+processed_store --> generate_viz : Processed Data\n(Volume, Price Stats)
+generate_viz --> user : Visualizations\n(Plots: Bar, Line, Violin)
+
+user --> fetch_data : User Request\n(Ticker, Date Range, Interval)
+user --> process_data : User Request\n(Visualization Type)
+user --> generate_viz : User Request\n(Visualization Type)
 
 @enduml

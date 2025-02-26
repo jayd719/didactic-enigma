@@ -74,24 +74,42 @@ function loadStylesheet(href) {
     }
 }
 
+function updateCSS_ALL() {
+    updateCSS(['h1'], ['text-3xl', 'font-bold']);
+    updateCSS(['h2'], ['text-xl', 'font-semibold', 'mt-8']);
+    updateCSS(['h3'], ['text-lg', 'font-semibold', 'mb-5']);
+    updateCSS(['h4'], ['text-md', 'font-semibold', 'mt-4']);
+    updateCSS(['h5'], ['text-sm', 'font-semibold', 'mt-3']);
+    updateCSS(['h6'], ['text-xs', 'font-semibold', 'mt-2']);
+    updateCSS(['p'], ['mt-1', 'text-md', 'text-muted-foreground', 'text-justify']);
+    updateCSS(['ul'], ['list-disc', 'pl-10']);
+    updateCSS(['ol'], ['list-decimal', 'pl-10']);
+    updateCSS(['li'], ['m-0', 'p-0']);
+    updateCSS(['table'], ['table', 'table-sm', 'mb-4']);
+    updateCSS(['thead'], ['bg-gray-100']);
+    updateCSS(['th'], ['px-4', 'py-2', 'text-left', 'font-bold']);
+    updateCSS(['td'], ['px-4', 'py-2', 'border', 'border-gray-200']);
+    updateCSS(['img'], ['p-10', 'rounded-lg', 'shadow-md']);
+    updateCSS(['a'], ['text-blue-700', 'underline', 'hover:text-blue-900']);
+    updateCSS(['blockquote'], ['border-l-4', 'border-gray-300', 'pl-4', 'italic', 'text-gray-600']);
+    updateCSS(['code'], ['bg-gray-100', 'p-1', 'rounded', 'text-sm', 'font-mono']);
+    updateCSS(['pre'], ['bg-gray-100', 'p-4', 'rounded', 'overflow-x-auto']);
+    updateCSS(['hr'], ['my-6', 'border-t', 'border-gray-200']);
+    updateCSS(['button'], ['px-4', 'py-2', 'bg-blue-500', 'text-white', 'rounded', 'hover:bg-blue-600']);
+    updateCSS(['input'], ['px-3', 'py-2', 'border', 'border-gray-300', 'rounded', 'focus:outline-none', 'focus:ring-2', 'focus:ring-blue-500']);
+    updateCSS(['textarea'], ['px-3', 'py-2', 'border', 'border-gray-300', 'rounded', 'focus:outline-none', 'focus:ring-2', 'focus:ring-blue-500']);
+    updateCSS(['label'], ['block', 'text-sm', 'font-medium', 'text-gray-700']);
+    updateCSS(['form'], ['space-y-4']);
+    updateCSS(['section'], ['my-8']);
+    updateCSS(['div'], ['my-4']);
+}
+
+
 
 loadScript("https://cdn.tailwindcss.com")
 loadStylesheet("https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css");
 document.documentElement.setAttribute("data-theme", "light");
 setTimeout(() => {
-    updateCSS(['h1'], ["text-5xl", "font-bold", "text-primary", "p-4", "border-b-4", "border-primary", "mb-8"]);
-    updateCSS(['h2'], ["text-2xl", "font-semibold", "text-secondary", "p-3", "border-b-2", "border-secondary", "mt-10", "mb-2"]);
-    updateCSS(['h3'], ["text-lg", "font-medium", "text-accent", "p-2", "border-b", "border-accent"]);
-    updateCSS(['h4'], ["text-md", "font-normal", "mt-5", "border-b", "border-neutral"]);
-    updateCSS(['p'], ["text-base", , "leading-relaxed", "mb-4", "text-sm"]);
-    updateCSS(['ul'], ["list-disc", "list-inside", "space-y-2", "pl-4"]);
-    updateCSS(['li'], ["text-base", , "leading-normal", "text-sm"]);
-    updateCSS(['table'], ["table", 'table-hover', "w-full", "border", "m-2", "border-base-300"]);
-    updateCSS(["thead"], ["bg-base-300", "border", "border-2"])
-    updateCSS(['img'], ["max-w-full", "h-auto", "p-10"]);
-    updateCSS(['a'], ["text-blue-600", "hover:text-blue-800", "underline", "font-medium", "transition", "duration-200"]);
-    document.querySelector("main").className = "container mx-auto px-4 py-8 overflow-y-scroll print:px-0"
-    document.body.classList.add("lg:flex", "print:block", "h-screen", "text-sm")
-    generateIndex();
+    updateCSS_ALL()
 }, 50);
-document.documentElement.setAttribute("data-theme", "corporate");
+document.documentElement.setAttribute("data-theme", "corporate");   

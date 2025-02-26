@@ -1,0 +1,89 @@
+@startuml
+skinparam linetype ortho
+skinparam defaultTextAlignment center
+skinparam shadowing false
+
+' Colors
+skinparam Rectangle {
+    BackgroundColor #F5F5F5
+    BorderColor #333333
+}
+
+skinparam Database {
+    BackgroundColor #E3F2FD
+    BorderColor #1976D2
+}
+
+skinparam Circle {
+    BackgroundColor #FFF3E0
+    BorderColor #FFA726
+}
+
+' External Entities
+rectangle "User" as user <<External Entity>> {
+}
+
+rectangle "Yahoo Finance API" as yahoo <<External Entity>> {
+}
+
+' Data Stores
+database "Stock Data Store" as stock_store <<Data Store>> {
+}
+
+database "Processed Data Store" as processed_store <<Data Store>> {
+}
+
+' Model Layer
+rectangle "Model" as model #FFCCBC {
+    circle "1.1 Validate User Input" as validate_input <<Process>>
+    circle "1.2 Download Data" as download_data <<Process>>
+    circle "1.3 Store Raw Data" as store_raw_data <<Process>>
+
+    circle "2.1 Compute Mean Price" as compute_mean <<Process>>
+    circle "2.2 Filter Volume Data" as filter_volume <<Process>>
+    circle "2.3 Store Processed Data" as store_processed <<Process>>
+}
+
+' View Layer
+rectangle "View" as view #C8E6C9 {
+    circle "3.1 Generate Volume Plot" as volume_plot <<Process>>
+    circle "3.2 Generate Price Analysis Plot" as price_plot <<Process>>
+    circle "3.3 Generate Violin Plot" as violin_plot <<Process>>
+}
+
+' Controller Layer
+rectangle "Controller" as controller #BBDEFB {
+    circle "Handle User Input" as handle_input <<Process>>
+    circle "Coordinate Data Flow" as coordinate_flow <<Process>>
+}
+
+' Data Flows
+user --> handle_input : User Request\n(Ticker, Date Range, Interval)
+handle_input --> validate_input : Validated Request
+validate_input --> download_data : Validated Input
+download_data --> yahoo : Request Stock Data
+yahoo --> download_data : Stock Data (Raw)\n(Open, High, Low, Close, Volume)
+download_data --> store_raw_data : Stock Data (Raw)
+store_raw_data --> stock_store : Stock Data (Raw)
+
+stock_store --> compute_mean : Stock Data (Raw)
+compute_mean --> filter_volume : Computed Mean Price
+filter_volume --> store_processed : Processed Data\n(Mean Price, Volume Data)
+store_processed --> processed_store : Processed Data
+
+controller --> coordinate_flow : Processed Data Request
+coordinate_flow --> processed_store : Retrieve Processed Data
+processed_store --> coordinate_flow : Processed Data
+coordinate_flow --> volume_plot : Volume Data
+coordinate_flow --> price_plot : Price Data\n(Close, Mean Price)
+coordinate_flow --> violin_plot : Price Data\n(Open, High, Low, Close)
+
+volume_plot --> user : Volume Plot
+price_plot --> user : Price Analysis Plot
+violin_plot --> user : Violin Plot
+
+' Layout Improvements
+model -[hidden]-> view
+view -[hidden]-> controller
+
+@enduml
